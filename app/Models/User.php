@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Métodos de verificación de roles
+    public function isSuperAdmin()
+    {
+        return $this->role === 'super_administrador';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'administrador' || $this->isSuperAdmin();
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'usuario';
     }
 }
