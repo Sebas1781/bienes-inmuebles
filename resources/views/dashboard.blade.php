@@ -184,10 +184,10 @@
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     const modalContent = modal.querySelector('.modal-content');
-    
+
     modal.classList.remove('hidden');
     modal.classList.add('flex');
-    
+
     // Animación de entrada
     setTimeout(() => {
         modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
@@ -199,12 +199,12 @@ function openModal(modalId) {
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     const modalContent = modal.querySelector('.modal-content');
-    
+
     // Animación de salida
     modal.style.backgroundColor = 'rgba(0, 0, 0, 0)';
     modalContent.style.transform = 'scale(0.95)';
     modalContent.style.opacity = '0';
-    
+
     setTimeout(() => {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
@@ -248,38 +248,38 @@ document.addEventListener('keydown', function(event) {
     .text-maroon-700 { color: #7c2a38; }
     .bg-maroon-100 { background-color: #f8e4ea; }
     .bg-maroon-50 { background-color: #fef2f5; }
-    
+
     /* Animaciones del modal */
     .modal-overlay {
         transition: background-color 0.3s ease;
         background-color: rgba(0, 0, 0, 0);
     }
-    
+
     .modal-content {
         transform: scale(0.95);
         opacity: 0;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     .hover\:scale-102:hover {
         transform: scale(1.02);
     }
-    
+
     /* Scrollbar personalizado */
     .max-h-96::-webkit-scrollbar {
         width: 8px;
     }
-    
+
     .max-h-96::-webkit-scrollbar-track {
         background: #f1f1f1;
         border-radius: 10px;
     }
-    
+
     .max-h-96::-webkit-scrollbar-thumb {
         background: #7c2a38;
         border-radius: 10px;
     }
-    
+
     .max-h-96::-webkit-scrollbar-thumb:hover {
         background: #651f2e;
     }

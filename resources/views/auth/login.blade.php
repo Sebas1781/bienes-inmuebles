@@ -38,10 +38,10 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-envelope text-maroon-700 mr-2"></i>Correo Electrónico
                         </label>
-                        <input 
-                            type="email" 
-                            name="email" 
-                            value="{{ old('email') }}" 
+                        <input
+                            type="email"
+                            name="email"
+                            value="{{ old('email') }}"
                             required
                             class="w-full border-2 border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-maroon-700 focus:border-transparent transition"
                             placeholder="tu@correo.com"
@@ -52,9 +52,9 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-lock text-maroon-700 mr-2"></i>Contraseña
                         </label>
-                        <input 
-                            type="password" 
-                            name="password" 
+                        <input
+                            type="password"
+                            name="password"
                             required
                             class="w-full border-2 border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-maroon-700 focus:border-transparent transition"
                             placeholder="••••••••"
@@ -62,9 +62,9 @@
                     </div>
 
                     <div class="flex items-center">
-                        <input 
-                            type="checkbox" 
-                            name="remember" 
+                        <input
+                            type="checkbox"
+                            name="remember"
                             id="remember"
                             class="h-4 w-4 text-maroon-700 focus:ring-maroon-700 border-gray-300 rounded"
                         >
@@ -73,7 +73,7 @@
                         </label>
                     </div>
 
-                    <button 
+                    <button
                         type="submit"
                         class="w-full bg-maroon-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-maroon-800 transition flex items-center justify-center gap-2 shadow-lg"
                     >

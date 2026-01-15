@@ -68,9 +68,9 @@
                                 <option value="super_administrador" {{ old('role') == 'super_administrador' ? 'selected' : '' }}>Super Administrador</option>
                             </select>
                             <p class="text-sm text-gray-500 mt-1">
-                                <i class="fas fa-info-circle"></i> 
-                                <strong>Usuario:</strong> Puede ver inmuebles. 
-                                <strong>Administrador:</strong> Puede gestionar inmuebles. 
+                                <i class="fas fa-info-circle"></i>
+                                <strong>Usuario:</strong> Puede ver inmuebles.
+                                <strong>Administrador:</strong> Puede gestionar inmuebles.
                                 <strong>Super Admin:</strong> Control total.
                             </p>
                         </div>

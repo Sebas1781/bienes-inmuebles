@@ -71,7 +71,7 @@
 
                         <div class="border-t pt-4">
                             <p class="text-sm text-gray-600 mb-4"><i class="fas fa-info-circle"></i> Deja los campos de contraseña en blanco si no deseas cambiarla</p>
-                            
+
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Nueva Contraseña</label>
