@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-100 flex flex-col">
-    <!-- Header -->
     <header class="bg-header text-white py-6 px-8 flex items-center justify-between shadow">
         <div class="flex items-center gap-4">
             <img src="{{ asset('images/Recurso 8.png') }}" alt="Logo" class="h-10">
@@ -18,7 +17,6 @@
     </header>
 
     <div class="flex flex-1">
-        <!-- Sidebar -->
         <aside class="w-64 bg-white border-r flex flex-col py-8 px-4 gap-2">
             <a href="{{ route('properties.create') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-maroon-100 transition text-maroon-700 font-semibold"><i class="fas fa-plus-square"></i> Agregar inmueble</a>
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg bg-maroon-700 text-white font-semibold"><i class="fas fa-warehouse"></i> Administrador de inmuebles</a>
@@ -27,7 +25,6 @@
             @endif
         </aside>
 
-        <!-- Main Content -->
         <main class="flex-1 p-8">
             @if(session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
@@ -36,38 +33,36 @@
             @endif
 
             <h2 class="text-xl font-bold mb-6">Administrador de Inmuebles</h2>
+            
             <div class="grid grid-cols-4 gap-6 mb-8">
-                <!-- Tarjeta Total Inmuebles -->
                 <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center">
                     <i class="fas fa-home text-maroon-700 text-3xl mb-2"></i>
                     <span class="text-2xl font-bold">{{ $totalInmuebles }}</span>
                     <span class="text-gray-500">Total Inmuebles</span>
                 </div>
 
-                <!-- Tarjeta Tipos Inmuebles (clickeable) -->
                 <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center cursor-pointer hover:shadow-lg transition"
                      onclick="toggleModal('modalTipos')">
                     <i class="fas fa-clipboard-list text-maroon-700 text-3xl mb-2"></i>
                     <span class="text-2xl font-bold">{{ $tiposInmuebles->count() }}</span>
-                    <span class="text-gray-500">Tipos Inmuebles</span>
+                    <span class="text-gray-500">Uso de Inmuebles</span>
                 </div>
 
-                <!-- Tarjeta Estado Ocupación (clickeable) -->
                 <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center cursor-pointer hover:shadow-lg transition"
                      onclick="toggleModal('modalOcupacion')">
                     <i class="fas fa-user-check text-maroon-700 text-3xl mb-2"></i>
-                    <span class="text-2xl font-bold">{{ $totalInmuebles }}</span>
+                    <span class="text-2xl font-bold">{{ $estadosOcupacion->sum('total') }}</span>
                     <span class="text-gray-500">Estatus Ocupación</span>
                 </div>
 
-                <!-- Tarjeta Estado Mantenimiento (clickeable) -->
                 <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center cursor-pointer hover:shadow-lg transition"
                      onclick="toggleModal('modalMantenimiento')">
                     <i class="fas fa-tools text-maroon-700 text-3xl mb-2"></i>
-                    <span class="text-2xl font-bold">{{ $totalInmuebles }}</span>
-                    <span class="text-gray-500">Estado Mantenimiento</span>
+                    <span class="text-2xl font-bold">{{ $estadosMantenimiento->sum('total') }}</span>
+                    <span class="text-gray-500">Alertas Mantenimiento</span>
                 </div>
             </div>
+
             <div class="flex gap-4 mb-6">
                 <div class="flex-1">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Buscar por nombre</label>
@@ -89,6 +84,7 @@
                 <button class="bg-gray-800 text-white px-6 py-2 rounded-lg font-semibold mt-6 h-10 flex items-center gap-2"><i class="fas fa-filter"></i> Filtrar</button>
                 <a href="{{ route('properties.create') }}" class="bg-maroon-700 text-white px-6 py-2 rounded-lg font-semibold mt-6 h-10 flex items-center gap-2"><i class="fas fa-plus"></i> Crear inmueble</a>
             </div>
+
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white rounded-lg shadow">
                     <thead class="bg-maroon-700 text-white">
@@ -100,18 +96,46 @@
                             <th class="py-3 px-4 text-left">Superficie</th>
                             <th class="py-3 px-4 text-left">Uso</th>
                             <th class="py-3 px-4 text-left">Habitado</th>
+                            <th class="py-3 px-4 text-center">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Aquí van los registros de inmuebles -->
+                    <tbody class="divide-y divide-gray-200">
+                        @forelse($properties as $property)
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="py-3 px-4">{{ $property->denominacion ?? 'N/A' }}</td>
+                            <td class="py-3 px-4 text-sm text-gray-600">{{ Str::limit($property->ubicacion, 20) }}</td>
+                            <td class="py-3 px-4">{{ $property->comunidad }}</td>
+                            <td class="py-3 px-4 text-xs font-mono">{{ $property->coordenadas }}</td>
+                            <td class="py-3 px-4">{{ $property->superficie_total }}</td>
+                            <td class="py-3 px-4">
+                                <span class="px-2 py-1 bg-gray-100 rounded text-xs font-semibold">{{ $property->uso_destino ?? 'Sin definir' }}</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                @if($property->habitado)
+                                    <span class="text-green-600 font-bold text-xs bg-green-100 px-2 py-1 rounded-full">SÍ</span>
+                                @else
+                                    <span class="text-red-600 font-bold text-xs bg-red-100 px-2 py-1 rounded-full">NO</span>
+                                @endif
+                            </td>
+                            <td class="py-3 px-4 text-center">
+                                <a href="#" class="text-gray-500 hover:text-maroon-700"><i class="fas fa-eye"></i></a>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="8" class="text-center py-8 text-gray-500">No hay inmuebles registrados.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $properties->links() }}
+                </div>
             </div>
         </main>
     </div>
 </div>
 
-<!-- Modal de Tipos de Inmuebles -->
 <div id="modalTipos" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" onclick="closeModalOnBackdrop(event, 'modalTipos')">
     <div class="modal-content bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 transform transition-all">
         <div class="flex justify-between items-center mb-6">
@@ -134,7 +158,6 @@
     </div>
 </div>
 
-<!-- Modal de Estado de Ocupación -->
 <div id="modalOcupacion" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" onclick="closeModalOnBackdrop(event, 'modalOcupacion')">
     <div class="modal-content bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 transform transition-all">
         <div class="flex justify-between items-center mb-6">
@@ -150,14 +173,10 @@
                 <span class="bg-maroon-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">{{ $estado->total }}</span>
             </div>
             @endforeach
-            @if($estadosOcupacion->count() === 0)
-            <p class="text-gray-500 text-center py-8 text-lg">No hay estados de ocupación registrados</p>
-            @endif
         </div>
     </div>
 </div>
 
-<!-- Modal de Estado de Mantenimiento -->
 <div id="modalMantenimiento" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" onclick="closeModalOnBackdrop(event, 'modalMantenimiento')">
     <div class="modal-content bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 transform transition-all">
         <div class="flex justify-between items-center mb-6">
@@ -173,9 +192,6 @@
                 <span class="bg-maroon-700 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">{{ $estado->total }}</span>
             </div>
             @endforeach
-            @if($estadosMantenimiento->count() === 0)
-            <p class="text-gray-500 text-center py-8 text-lg">No hay estados de mantenimiento registrados</p>
-            @endif
         </div>
     </div>
 </div>
@@ -226,7 +242,6 @@ function toggleModal(modalId) {
     }
 }
 
-// Cerrar con tecla ESC
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         ['modalTipos', 'modalOcupacion', 'modalMantenimiento'].forEach(modalId => {
@@ -239,9 +254,6 @@ document.addEventListener('keydown', function(event) {
 });
 </script>
 
-
-
-<!-- Colores personalizados -->
 <style>
     .bg-header { background-color: #9b4d5c; }
     .bg-maroon-700 { background-color: #7c2a38; }
@@ -249,7 +261,6 @@ document.addEventListener('keydown', function(event) {
     .bg-maroon-100 { background-color: #f8e4ea; }
     .bg-maroon-50 { background-color: #fef2f5; }
 
-    /* Animaciones del modal */
     .modal-overlay {
         transition: background-color 0.3s ease;
         background-color: rgba(0, 0, 0, 0);
@@ -265,7 +276,6 @@ document.addEventListener('keydown', function(event) {
         transform: scale(1.02);
     }
 
-    /* Scrollbar personalizado */
     .max-h-96::-webkit-scrollbar {
         width: 8px;
     }
