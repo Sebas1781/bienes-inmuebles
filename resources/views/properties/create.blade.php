@@ -1,71 +1,96 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-100 flex flex-col">
+<div class="min-h-screen bg-gray-100 flex flex-col relative">
     
-    <header class="bg-header text-white py-6 px-8 flex items-center justify-between shadow" style="background-color: #9b4d5c;">
+    <header class="bg-header text-white py-4 px-4 md:px-8 flex items-center justify-between shadow sticky top-0 z-30 transition-all duration-300" style="background-color: #9b4d5c;">
         <div class="flex items-center gap-4">
-            <img src="{{ asset('images/Recurso 8.png') }}" alt="Logo" class="h-10">
-            <span class="text-3xl font-bold">Bienes Inmuebles</span>
-        </div>
-        <h1 class="text-2xl font-semibold">Agregar Inmueble</h1>
-        <form action="{{ route('logout') }}" method="POST" class="inline">
-            @csrf
-            <button type="submit" class="text-red-200 hover:text-white flex items-center gap-2 transition">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            <button id="mobile-menu-btn" class="md:hidden text-white hover:text-gray-200 focus:outline-none p-1">
+                <i class="fas fa-bars text-2xl"></i>
             </button>
-        </form>
+
+            <div class="flex items-center gap-2 md:gap-4">
+                <img src="{{ asset('images/Recurso 8.png') }}" alt="Logo" class="h-8 md:h-10">
+                <span class="text-lg md:text-3xl font-bold truncate">Bienes Inmuebles</span>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <h1 class="text-lg md:text-2xl font-semibold hidden sm:block">Agregar Inmueble</h1>
+            <form action="{{ route('logout') }}" method="POST" class="inline">
+                @csrf
+                <button type="submit" class="text-red-200 hover:text-white flex items-center gap-2 transition">
+                    <i class="fas fa-sign-out-alt"></i> 
+                    <span class="hidden md:inline">Cerrar sesión</span>
+                </button>
+            </form>
+        </div>
     </header>
 
-    <div class="flex flex-1">
-        <aside class="w-64 bg-white border-r flex flex-col py-8 px-4 gap-2 shadow-inner">
-            <a href="{{ route('properties.create') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg bg-maroon-700 text-white font-semibold" style="background-color: #741728;">
+    <div class="flex flex-1 relative overflow-hidden">
+        
+        <div id="sidebar-overlay" onclick="toggleSidebar()" 
+             class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden transition-opacity backdrop-blur-sm">
+        </div>
+
+        <aside id="sidebar" 
+               class="bg-white border-r w-64 py-6 px-4 gap-2 flex flex-col shadow-2xl md:shadow-inner
+                      fixed inset-y-0 left-0 z-50 h-full transition-transform duration-300 ease-in-out transform -translate-x-full
+                      md:relative md:translate-x-0 md:inset-auto">
+            
+            <div class="flex justify-end md:hidden mb-2">
+                <button onclick="toggleSidebar()" class="text-gray-400 hover:text-maroon-700 p-2">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+
+            <a href="{{ route('properties.create') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg bg-maroon-700 text-white font-semibold shadow-md" style="background-color: #741728;">
                 <i class="fas fa-plus-square"></i> Agregar inmueble
             </a>
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-gray-100 text-maroon-700 font-semibold transition">
-                <i class="fas fa-warehouse"></i> Administrador de inmuebles
+                <i class="fas fa-warehouse"></i> Admin. Inmuebles
             </a>
             @if(auth()->user()->isSuperAdmin())
             <a href="{{ route('users.index') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-gray-100 text-maroon-700 font-semibold transition">
-                <i class="fas fa-users"></i> Administrador de usuarios
+                <i class="fas fa-users"></i> Admin. Usuarios
             </a>
             @endif
         </aside>
 
-        <main class="flex-1 bg-gray-50 p-8 overflow-y-auto">
+        <main class="flex-1 bg-gray-50 p-4 md:p-8 overflow-y-auto w-full">
             <div class="max-w-5xl mx-auto">
                 
                 <div class="mb-8">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Nueva Ficha Técnica</h2>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Nueva Ficha Técnica</h2>
                     
-                    <div class="flex items-center justify-between mb-8 px-4">
-                        <div class="flex flex-col items-center step-indicator" id="ind-1">
-                            <div class="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold mb-2 transition-colors duration-300">1</div>
-                            <span class="text-sm font-bold text-gray-800">General</span>
+                    <div class="flex items-center justify-between mb-8 px-0 md:px-4 overflow-x-auto">
+                        <div class="flex flex-col items-center step-indicator min-w-[60px]" id="ind-1">
+                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold mb-2 text-sm md:text-base transition-colors duration-300">1</div>
+                            <span class="text-xs md:text-sm font-bold text-gray-800">General</span>
                         </div>
-                        <div class="flex-1 h-1 bg-gray-300 mx-4 rounded">
+                        <div class="flex-1 h-1 bg-gray-300 mx-2 md:mx-4 rounded">
                             <div class="h-full bg-gray-900 transition-all duration-300 w-0" id="progress-1"></div>
                         </div>
                         
-                        <div class="flex flex-col items-center step-indicator opacity-50" id="ind-2">
-                            <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2 transition-colors duration-300">2</div>
-                            <span class="text-sm font-bold text-gray-500">Equipamiento</span>
+                        <div class="flex flex-col items-center step-indicator opacity-50 min-w-[60px]" id="ind-2">
+                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2 text-sm md:text-base transition-colors duration-300">2</div>
+                            <span class="text-xs md:text-sm font-bold text-gray-500">Equip.</span>
                         </div>
-                        <div class="flex-1 h-1 bg-gray-300 mx-4 rounded">
+                        <div class="flex-1 h-1 bg-gray-300 mx-2 md:mx-4 rounded">
                             <div class="h-full bg-gray-900 transition-all duration-300 w-0" id="progress-2"></div>
                         </div>
 
-                        <div class="flex flex-col items-center step-indicator opacity-50" id="ind-3">
-                            <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2 transition-colors duration-300">3</div>
-                            <span class="text-sm font-bold text-gray-500">Mantenimiento</span>
+                        <div class="flex flex-col items-center step-indicator opacity-50 min-w-[60px]" id="ind-3">
+                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2 text-sm md:text-base transition-colors duration-300">3</div>
+                            <span class="text-xs md:text-sm font-bold text-gray-500">Mant.</span>
                         </div>
-                        <div class="flex-1 h-1 bg-gray-300 mx-4 rounded">
+                        <div class="flex-1 h-1 bg-gray-300 mx-2 md:mx-4 rounded">
                             <div class="h-full bg-gray-900 transition-all duration-300 w-0" id="progress-3"></div>
                         </div>
 
-                        <div class="flex flex-col items-center step-indicator opacity-50" id="ind-4">
-                            <div class="w-10 h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2 transition-colors duration-300">4</div>
-                            <span class="text-sm font-bold text-gray-500">Finalizar</span>
+                        <div class="flex flex-col items-center step-indicator opacity-50 min-w-[60px]" id="ind-4">
+                            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mb-2 text-sm md:text-base transition-colors duration-300">4</div>
+                            <span class="text-xs md:text-sm font-bold text-gray-500">Fin</span>
                         </div>
                     </div>
                 </div>
@@ -74,9 +99,10 @@
                     @csrf
 
                     <div id="step-1" class="form-step">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+                        <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
                             <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Datos Generales</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">Denominación</label><input type="text" name="denominacion" class="w-full bg-gray-200 border-none rounded-md py-2 px-4 focus:ring-2 focus:ring-gray-400"></div>
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">Ubicación</label><input type="text" name="ubicacion" class="w-full bg-gray-200 border-none rounded-md py-2 px-4"></div>
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">Comunidad</label><input type="text" name="comunidad" class="w-full bg-gray-200 border-none rounded-md py-2 px-4"></div>
@@ -85,19 +111,21 @@
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">Superficie Total</label><input type="text" name="superficie_total" class="w-full bg-gray-200 border-none rounded-md py-2 px-4"></div>
                                 <div class="md:col-span-2"><label class="block text-sm font-bold text-gray-700 mb-1">Uso y destino</label><input type="text" name="uso_destino" class="w-full bg-gray-200 border-none rounded-md py-2 px-4"></div>
                             </div>
-                            <div class="grid grid-cols-3 gap-4 mt-6">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">¿Habitado?</label><select name="habitado" class="w-full bg-gray-200 border-none rounded-md py-2 px-3"><option value="0">No</option><option value="1">Sí</option></select></div>
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">¿Propio?</label><select name="propio" class="w-full bg-gray-200 border-none rounded-md py-2 px-3"><option value="0">No</option><option value="1">Sí</option></select></div>
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">¿Comodato?</label><select name="comodato" class="w-full bg-gray-200 border-none rounded-md py-2 px-3"><option value="0">No</option><option value="1">Sí</option></select></div>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">Adscrito a</label><input type="text" name="adscrito_a" class="w-full bg-gray-200 border-none rounded-md py-2 px-4"></div>
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">A resguardo de</label><input type="text" name="resguardo_servidor" class="w-full bg-gray-200 border-none rounded-md py-2 px-4"></div>
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">Fecha Contrato</label><input type="date" name="fecha_contrato" class="w-full bg-gray-200 border-none rounded-md py-2 px-4"></div>
                             </div>
                         </div>
 
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-gray-200">
                             <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Multimedia y Servicios</h2>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div class="flex flex-col justify-center">
@@ -110,12 +138,12 @@
                                 </div>
                                 <div class="space-y-6">
                                     @foreach(['luz' => 'Luz', 'predio' => 'Predio', 'agua' => 'Agua'] as $key => $label)
-                                    <div class="flex items-center justify-between">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                         <div class="flex items-center space-x-4">
                                             <label class="w-20 font-bold text-gray-700">{{ $label }}</label>
                                             <select name="{{ $key }}" class="bg-gray-200 border-none rounded py-1 px-2 text-sm"><option value="0">No</option><option value="1">Sí</option></select>
                                         </div>
-                                        <button type="button" class="bg-gray-800 text-white text-sm py-1 px-4 rounded hover:bg-black transition">Anexar PDF</button>
+                                        <button type="button" class="bg-gray-800 text-white text-sm py-2 px-4 rounded hover:bg-black transition w-full sm:w-auto">Anexar PDF</button>
                                     </div>
                                     @endforeach
                                 </div>
@@ -124,7 +152,7 @@
                     </div>
 
                     <div id="step-2" class="form-step hidden">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-gray-200">
                             <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Equipamiento</h2>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div><label class="block text-sm font-bold text-gray-700 mb-1">Oficinas Admin.</label><input type="text" name="oficinas_admin" class="w-full bg-gray-200 border-none rounded-md py-2 px-4"></div>
@@ -138,7 +166,7 @@
                     </div>
 
                     <div id="step-3" class="form-step hidden">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-gray-200">
                             <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Mantenimiento</h2>
                             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                 <div class="lg:col-span-2 space-y-4">
@@ -148,11 +176,11 @@
                                         'poda' => 'Poda', 
                                         'impermeabilizacion' => 'Impermeab.'
                                     ] as $key => $label)
-                                    <div class="grid grid-cols-12 gap-2 items-end border-b pb-4 lg:border-none lg:pb-0">
-                                        <div class="col-span-12 lg:col-span-2 font-bold text-gray-700 text-sm">{{ $label }}</div>
-                                        <div class="col-span-4 lg:col-span-2"><select name="{{ $key }}" class="w-full bg-gray-200 border-none rounded py-1 px-2 text-sm"><option value="0">No</option><option value="1">Sí</option></select></div>
-                                        <div class="col-span-4 lg:col-span-4"><label class="text-xs text-gray-500 block">Fecha</label><input type="date" name="fecha_{{ explode('_',$key)[0] }}" class="w-full bg-gray-200 border-none rounded py-1 px-2 text-sm"></div>
-                                        <div class="col-span-4 lg:col-span-4"><label class="text-xs text-gray-500 block">Req.</label><input type="text" name="req_{{ explode('_',$key)[0] }}" class="w-full bg-gray-200 border-none rounded py-1 px-2 text-sm"></div>
+                                    <div class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-2 items-start md:items-end border-b pb-4 lg:border-none lg:pb-0">
+                                        <div class="md:col-span-2 font-bold text-gray-700 text-sm mt-1">{{ $label }}</div>
+                                        <div class="md:col-span-2 w-full"><select name="{{ $key }}" class="w-full bg-gray-200 border-none rounded py-1 px-2 text-sm"><option value="0">No</option><option value="1">Sí</option></select></div>
+                                        <div class="md:col-span-4 w-full"><label class="text-xs text-gray-500 block">Fecha</label><input type="date" name="fecha_{{ explode('_',$key)[0] }}" class="w-full bg-gray-200 border-none rounded py-1 px-2 text-sm"></div>
+                                        <div class="md:col-span-4 w-full"><label class="text-xs text-gray-500 block">Req.</label><input type="text" name="req_{{ explode('_',$key)[0] }}" class="w-full bg-gray-200 border-none rounded py-1 px-2 text-sm"></div>
                                     </div>
                                     @endforeach
                                 </div>
@@ -169,23 +197,23 @@
                     </div>
 
                     <div id="step-4" class="form-step hidden">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-gray-200">
                             <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Actividades Realizadas</h2>
                             <textarea name="actividades" rows="6" placeholder="Detalle aquí las actividades, observaciones o comentarios finales..." class="w-full bg-gray-200 border-none rounded-lg p-4 focus:ring-2 focus:ring-gray-400"></textarea>
                         </div>
                     </div>
 
-                    <div class="flex justify-between items-center pt-6 border-t mt-4">
-                        <button type="button" id="prevBtn" class="px-6 py-2 bg-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-400 transition hidden">
+                    <div class="flex flex-col-reverse md:flex-row justify-between items-center pt-6 border-t mt-4 gap-4">
+                        <button type="button" id="prevBtn" class="w-full md:w-auto px-6 py-2 bg-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-400 transition hidden">
                             Anterior
                         </button>
                         
-                        <div class="flex gap-4">
-                            <a href="{{ route('dashboard') }}" class="px-6 py-2 text-gray-500 font-semibold hover:underline">Cancelar</a>
-                            <button type="button" id="nextBtn" class="px-8 py-2 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition shadow-lg">
+                        <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+                            <a href="{{ route('dashboard') }}" class="w-full md:w-auto px-6 py-2 text-gray-500 font-semibold hover:underline text-center">Cancelar</a>
+                            <button type="button" id="nextBtn" class="w-full md:w-auto px-8 py-2 bg-gray-900 text-white font-bold rounded-lg hover:bg-black transition shadow-lg text-center">
                                 Siguiente
                             </button>
-                            <button type="submit" id="submitBtn" class="px-8 py-2 bg-green-700 text-white font-bold rounded-lg hover:bg-green-800 transition shadow-lg hidden">
+                            <button type="submit" id="submitBtn" class="w-full md:w-auto px-8 py-2 bg-green-700 text-white font-bold rounded-lg hover:bg-green-800 transition shadow-lg hidden text-center">
                                 Guardar Todo
                             </button>
                         </div>
@@ -198,6 +226,24 @@
 </div>
 
 <script>
+    // --- LÓGICA DEL SIDEBAR MÓVIL ---
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const btn = document.getElementById('mobile-menu-btn');
+
+    function toggleSidebar() {
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+    
+    if(btn) btn.addEventListener('click', toggleSidebar);
+
+    // --- LÓGICA DEL WIZARD (PASOS) ---
     document.addEventListener('DOMContentLoaded', function() {
         let currentStep = 1;
         const totalSteps = 4;
@@ -228,7 +274,7 @@
                 const ind = document.getElementById(`ind-${i}`);
                 const circle = ind.querySelector('div');
                 const text = ind.querySelector('span');
-                const bar = document.getElementById(`progress-${i-1}`); // Barra anterior
+                const bar = document.getElementById(`progress-${i-1}`); 
 
                 if (i <= currentStep) {
                     ind.classList.remove('opacity-50');
@@ -254,7 +300,6 @@
             if (currentStep < totalSteps) {
                 currentStep++;
                 updateStep();
-                // Scroll arriba suave
                 document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
             }
         });
