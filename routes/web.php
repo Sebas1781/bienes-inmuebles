@@ -13,7 +13,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Ruta principal - redirige al login o dashboard
 Route::get('/', function () {
-    if (auth()->check()) {
+    if (\Illuminate\Support\Facades\Auth::check()) {
         return redirect()->route('dashboard');
     }
     return redirect()->route('login');

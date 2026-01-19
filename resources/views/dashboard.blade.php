@@ -139,11 +139,11 @@
                     <table class="min-w-full text-sm text-left">
                         <thead class="bg-maroon-700 text-white uppercase text-xs tracking-wider">
                             <tr>
-                                <th class="py-3 px-4 font-semibold">Nombre</th>
+                                <th class="py-3 px-4 font-semibold">Denominación</th>
                                 <th class="py-3 px-4 font-semibold">Ubicación</th>
                                 <th class="py-3 px-4 font-semibold">Comunidad</th>
-                                <th class="py-3 px-4 font-semibold">Sup. Total</th>
-                                <th class="py-3 px-4 font-semibold">Uso</th>
+                                <th class="py-3 px-4 font-semibold">Superficie Total</th>
+                                <th class="py-3 px-4 font-semibold">Uso y Destino</th>
                                 <th class="py-3 px-4 text-center font-semibold">Habitado</th>
                                 <th class="py-3 px-4 text-center font-semibold">Acciones</th>
                             </tr>
@@ -166,8 +166,8 @@
                                     @endif
                                 </td>
                                 <td class="py-3 px-4 text-center">
-                                    <a href="{{ route('properties.edit', $property->id) }}" class="text-gray-400 hover:text-maroon-700 transition text-lg" title="Ver detalles">
-                                        <i class="fas fa-eye"></i>
+                                    <a href="{{ route('properties.edit', $property->id) }}" class="text-gray-400 hover:text-maroon-700 transition text-lg" title="Editar">
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                 </td>
                             </tr>
