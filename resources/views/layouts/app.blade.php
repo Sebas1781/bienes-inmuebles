@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Carga los assets con Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <style>
         /* Colores personalizados Maroon - Fallback para navegadores */
         .bg-header { background-color: #9b4d5c; }
@@ -18,7 +18,7 @@
         .bg-maroon-100 { background-color: #f8e4ea; }
         .hover\:bg-maroon-100:hover { background-color: #f8e4ea; }
         .hover\:bg-maroon-800:hover { background-color: #651f2e; }
-        .focus\:ring-maroon-700:focus { 
+        .focus\:ring-maroon-700:focus {
             --tw-ring-color: #7c2a38;
             --tw-ring-opacity: 1;
         }
@@ -61,7 +61,7 @@
             }
         }
     </style>
-    
+
     @stack('styles')
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -72,7 +72,7 @@
         // Animación de transición suave entre páginas - SOLO CONTENIDO PRINCIPAL
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('a[href^="/"]');
-            
+
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     if (this.target === '_blank' || this.getAttribute('onclick')) {
@@ -80,16 +80,16 @@
                     }
 
                     const href = this.getAttribute('href');
-                    
+
                     if (href && href !== '#' && !href.includes('logout')) {
                         e.preventDefault();
-                        
+
                         // Aplicar animación solo al main
                         const mainContent = document.querySelector('main');
                         if (mainContent) {
                             mainContent.classList.add('page-transition-exit');
                         }
-                        
+
                         setTimeout(() => {
                             window.location.href = href;
                         }, 300);

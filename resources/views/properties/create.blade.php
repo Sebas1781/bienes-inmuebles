@@ -20,20 +20,20 @@
 </style>
 
 <div class="min-h-screen bg-gray-50 flex flex-col relative font-sans">
-    
+
     <x-header title="Nueva Ficha Técnica" />
 
     <div class="flex flex-1 relative overflow-hidden">
-        
+
         <x-sidebar active="create" />
 
         <main class="flex-1 bg-[#f8f9fa] p-3 md:p-8 overflow-y-auto w-full scroll-smooth pb-24 md:pb-8">
             <div class="max-w-6xl mx-auto">
-                
+
                 <div class="mb-6 md:mb-10 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-0 z-10 md:static">
                     <div class="flex items-center justify-between px-2 relative">
                         <div class="absolute left-4 right-4 top-1/2 transform -translate-y-1/2 h-1 bg-gray-100 -z-0 rounded-full"></div>
-                        
+
                         @foreach(['General', 'Equip.', 'Mant.', 'Fin'] as $index => $label)
                         @php $stepNum = $index + 1; @endphp
                         <div class="flex flex-col items-center step-indicator relative z-10" id="ind-{{ $stepNum }}">
@@ -55,7 +55,7 @@
                                 <div class="bg-red-50 p-2 rounded-lg text-[#9b4d5c]"><i class="fas fa-info-circle text-lg md:text-xl"></i></div>
                                 <h2 class="text-lg md:text-xl font-bold text-gray-800">Datos Generales</h2>
                             </div>
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                                 <div>
                                     <label class="label-modern">Denominación</label>
@@ -86,7 +86,7 @@
                                     <input type="text" name="uso_destino" class="input-modern" placeholder="Ej: Oficinas administrativas">
                                 </div>
                             </div>
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8 bg-gray-50 p-4 rounded-xl border border-gray-100">
                                 <div>
                                     <label class="label-modern">¿Habitado?</label>
@@ -147,7 +147,7 @@
                                     <label class="label-modern mb-2">Fotografía Principal</label>
                                     <div class="relative h-48 md:h-56 w-full rounded-xl border-2 border-dashed border-gray-300 hover:border-[#9b4d5c] bg-gray-50 flex flex-col items-center justify-center transition group overflow-hidden">
                                         <img id="preview-image" src="#" alt="Previsualización" class="hidden w-full h-full object-cover absolute inset-0 z-10">
-                                        
+
                                         <div id="upload-placeholder" class="text-center p-4">
                                             <div class="bg-white p-3 rounded-full shadow-sm inline-block mb-3">
                                                 <i class="fas fa-cloud-upload-alt text-2xl text-[#9b4d5c]"></i>
@@ -167,7 +167,7 @@
                                                 <i class="fas {{ $data[1] }}"></i>
                                             </div>
                                             <span class="font-medium text-gray-700">{{ $data[0] }}</span>
-                                            
+
                                             <select name="{{ $key }}" class="bg-white border border-gray-300 rounded text-sm py-1 px-2" onchange="toggleFileInput(this, '{{ $key }}')">
                                                 <option value="0">No</option>
                                                 <option value="1">Sí</option>
@@ -192,11 +192,11 @@
 
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                                 @foreach([
-                                    'oficinas_admin' => 'Oficinas', 
-                                    'modulos_sanitarios' => 'Sanitarios', 
-                                    'bodega' => 'Bodegas', 
-                                    'num_ventana' => 'Ventanas', 
-                                    'tienda' => 'Locales', 
+                                    'oficinas_admin' => 'Oficinas',
+                                    'modulos_sanitarios' => 'Sanitarios',
+                                    'bodega' => 'Bodegas',
+                                    'num_ventana' => 'Ventanas',
+                                    'tienda' => 'Locales',
                                     'porton' => 'Portones'
                                 ] as $name => $label)
                                 <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 hover:border-[#9b4d5c]/30 transition">
@@ -216,9 +216,9 @@
                             </div>
 
                             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                                
+
                                 <div class="lg:col-span-8 space-y-6">
-                                    
+
                                     <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
                                         <div class="flex items-center gap-3 mb-4">
                                             <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center"><i class="fas fa-paint-roller"></i></div>
@@ -315,7 +315,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="lg:col-span-4 mt-6 lg:mt-0">
                                     <div class="bg-gray-50 p-5 rounded-2xl border border-gray-200">
                                         <h3 class="text-sm font-bold text-gray-800 mb-4 uppercase tracking-wide">Estructuras</h3>
@@ -342,7 +342,7 @@
                                 <div class="bg-gray-100 p-2 rounded-lg text-gray-600"><i class="fas fa-clipboard-list text-lg md:text-xl"></i></div>
                                 <h2 class="text-lg md:text-xl font-bold text-gray-800">Comentarios Finales</h2>
                             </div>
-                            
+
                             <div class="w-full">
                                 <label class="label-modern mb-3">Observaciones Generales</label>
                                 <textarea name="actividades" rows="8" placeholder="Escriba aquí cualquier detalle adicional relevante..." class="input-modern resize-none h-52 rounded-xl w-full"></textarea>
@@ -355,16 +355,16 @@
                             <button type="button" id="prevBtn" class="w-full md:w-auto px-6 py-3 bg-white border border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-gray-50 transition hidden">
                                 <i class="fas fa-arrow-left mr-2"></i> Atrás
                             </button>
-                            
+
                             <div class="flex gap-3 w-full md:w-auto">
                                 <a href="{{ route('dashboard') }}" class="flex-1 md:flex-none py-3 px-4 text-gray-500 font-bold text-center hover:text-red-500 transition text-sm flex items-center justify-center">
                                     Cancelar
                                 </a>
-                                
+
                                 <button type="button" id="nextBtn" class="flex-1 md:flex-none px-8 py-3 bg-[#9b4d5c] text-white font-bold rounded-xl hover:bg-[#7a3b47] transition shadow-lg active:scale-95 flex items-center justify-center gap-2">
                                     Siguiente <i class="fas fa-chevron-right text-xs"></i>
                                 </button>
-                                
+
                                 <button type="submit" id="submitBtn" class="flex-1 md:flex-none px-8 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition shadow-lg active:scale-95 hidden flex items-center justify-center gap-2">
                                     <i class="fas fa-check"></i> Guardar
                                 </button>
@@ -402,7 +402,7 @@
 
     // 2. WIZARD
     document.addEventListener('DOMContentLoaded', () => {
-        let currentStep = 1; 
+        let currentStep = 1;
         const totalSteps = 4;
         const nextBtn = document.getElementById('nextBtn');
         const prevBtn = document.getElementById('prevBtn');
@@ -416,7 +416,7 @@
 
             // Botones
             prevBtn.classList.toggle('hidden', currentStep === 1);
-            
+
             if (currentStep === totalSteps) {
                 nextBtn.classList.add('hidden');
                 submitBtn.classList.remove('hidden');
@@ -430,11 +430,11 @@
                 const ind = document.getElementById(`ind-${i}`);
                 const circle = ind.querySelector('div');
                 const text = ind.querySelector('span');
-                
+
                 circle.className = "w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center font-bold text-xs md:text-lg ring-4 ring-white transition-all duration-300 shadow-sm";
                 text.className = "mt-2 text-[10px] md:text-sm font-bold transition-colors duration-300";
 
-                if (i < currentStep) { 
+                if (i < currentStep) {
                     circle.classList.add('bg-green-500', 'text-white');
                     circle.innerHTML = '<i class="fas fa-check"></i>';
                     text.classList.add('text-green-600');
@@ -448,7 +448,7 @@
                     text.classList.add('text-gray-400');
                 }
             }
-            
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 

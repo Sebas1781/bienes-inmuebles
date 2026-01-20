@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-100 flex flex-col relative">
-    
+
     <x-header title="Admin. Usuarios" />
 
     <div class="flex flex-1 relative overflow-hidden">
-        
+
         <x-sidebar active="users" />
 
         <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
-            
+
             @if(session('success'))
             <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded shadow-sm">
                 <p class="font-bold">Éxito</p>

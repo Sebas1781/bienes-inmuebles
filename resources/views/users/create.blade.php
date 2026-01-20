@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-100 flex flex-col relative">
-    
+
     <x-header title="Crear Usuario" />
 
     <div class="flex flex-1 relative overflow-hidden">
-        
+
         <x-sidebar active="users" />
 
         <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
@@ -59,7 +59,7 @@
                                     <i class="fas fa-chevron-down text-xs"></i>
                                 </div>
                             </div>
-                            
+
                             <div class="mt-2 bg-blue-50 text-blue-800 text-xs p-3 rounded border border-blue-100">
                                 <p class="font-bold flex items-center gap-1"><i class="fas fa-info-circle"></i> Permisos:</p>
                                 <ul class="list-disc list-inside mt-1 space-y-1 ml-1">

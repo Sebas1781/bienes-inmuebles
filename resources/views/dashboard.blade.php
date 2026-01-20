@@ -10,7 +10,7 @@
         <x-sidebar active="dashboard" />
 
         <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
-            
+
             @if(session('success'))
             <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded shadow-sm animate-fade-in-down">
                 <p class="font-bold">Éxito</p>
@@ -21,7 +21,7 @@
             <h2 class="text-xl md:text-2xl font-bold mb-6 text-gray-800">Resumen General</h2>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
-                
+
                 <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-6 flex flex-col items-center border-t-4 border-maroon-700">
                     <i class="fas fa-home text-maroon-700 text-3xl mb-2"></i>
                     <span class="text-3xl font-bold text-gray-800">{{ $totalInmuebles }}</span>
@@ -55,7 +55,7 @@
 
             <div class="bg-white p-4 rounded-lg shadow mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
                 <div class="w-full md:flex-1 space-y-4 md:space-y-0 md:flex md:gap-4">
-                    
+
                     <div class="flex-1">
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Buscar por nombre</label>
                         <div class="relative">

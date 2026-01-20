@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-100 flex flex-col relative">
-    
+
     <x-header title="Editar Usuario" />
 
     <div class="flex flex-1 relative overflow-hidden">
-        
+
         <x-sidebar active="users" />
 
         <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
             <div class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-                    
+
                     <div class="flex items-center gap-3 mb-6 border-b pb-4">
                         <i class="fas fa-user-edit text-maroon-700 text-2xl"></i>
                         <h2 class="text-2xl font-bold text-gray-800">Editar Usuario</h2>
