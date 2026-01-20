@@ -3,60 +3,11 @@
 @section('content')
 <div class="min-h-screen bg-gray-100 flex flex-col relative">
 
-    <header class="bg-header text-white py-4 px-4 md:px-8 flex items-center justify-between shadow sticky top-0 z-30 transition-all duration-300">
-        
-        <div class="flex items-center gap-4">
-            <button id="mobile-menu-btn" class="md:hidden text-white hover:text-gray-200 focus:outline-none p-2">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-
-            <div class="flex items-center gap-2 md:gap-4">
-                <img src="{{ asset('images/Recurso 8.png') }}" alt="Logo" class="h-8 md:h-10">
-                <span class="text-lg md:text-3xl font-bold truncate">Bienes Inmuebles</span>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-4">
-            <h1 class="text-xl font-semibold hidden lg:block">Dashboard</h1>
-            <form action="{{ route('logout') }}" method="POST" class="inline">
-                @csrf
-                <button type="submit" class="text-red-200 hover:text-white flex items-center gap-2 transition">
-                    <i class="fas fa-sign-out-alt"></i> 
-                    <span class="hidden md:inline">Cerrar sesión</span>
-                </button>
-            </form>
-        </div>
-    </header>
+    <x-header title="Dashboard" />
 
     <div class="flex flex-1 relative overflow-hidden">
 
-        <div id="sidebar-overlay" onclick="toggleSidebar()" 
-             class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden transition-opacity backdrop-blur-sm">
-        </div>
-
-        <aside id="sidebar" 
-               class="bg-white border-r w-64 py-6 px-4 gap-2 flex flex-col shadow-2xl md:shadow-inner
-                      fixed inset-y-0 left-0 z-50 h-full transition-transform duration-300 ease-in-out transform -translate-x-full
-                      md:relative md:translate-x-0 md:inset-auto">
-            
-            <div class="flex justify-end md:hidden mb-2">
-                <button onclick="toggleSidebar()" class="text-gray-400 hover:text-maroon-700 p-2">
-                    <i class="fas fa-times text-2xl"></i>
-                </button>
-            </div>
-
-            <a href="{{ route('properties.create') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-maroon-100 transition text-maroon-700 font-semibold group">
-                <i class="fas fa-plus-square group-hover:scale-110 transition-transform"></i> Agregar inmueble
-            </a>
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg bg-maroon-700 text-white font-semibold shadow-md">
-                <i class="fas fa-warehouse"></i> Admin. Inmuebles
-            </a>
-            @if(auth()->user()->isSuperAdmin())
-            <a href="{{ route('users.index') }}" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-maroon-100 transition text-maroon-700 font-semibold group">
-                <i class="fas fa-users group-hover:scale-110 transition-transform"></i> Admin. Usuarios
-            </a>
-            @endif
-        </aside>
+        <x-sidebar active="dashboard" />
 
         <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
             
@@ -195,7 +146,7 @@
     </div>
 </div>
 
-<div id="modalTipos" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModalOnBackdrop(event, 'modalTipos')">
+<div id="modalTipos" class="modal-overlay fixed inset-0 bg-white/10 backdrop-blur-sm hidden items-center justify-center z-50 p-4" onclick="closeModalOnBackdrop(event, 'modalTipos')">
     <div class="modal-content bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-auto transform transition-all relative">
         <div class="flex justify-between items-center mb-6">
             <h3 class="text-xl font-bold text-maroon-700"><i class="fas fa-clipboard-list mr-2"></i>Tipos de Inmuebles</h3>
@@ -215,7 +166,7 @@
     </div>
 </div>
 
-<div id="modalOcupacion" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModalOnBackdrop(event, 'modalOcupacion')">
+<div id="modalOcupacion" class="modal-overlay fixed inset-0 bg-white/10 backdrop-blur-sm hidden items-center justify-center z-50 p-4" onclick="closeModalOnBackdrop(event, 'modalOcupacion')">
     <div class="modal-content bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-auto transform transition-all relative">
         <div class="flex justify-between items-center mb-6">
             <h3 class="text-xl font-bold text-maroon-700"><i class="fas fa-user-check mr-2"></i>Estatus Ocupación</h3>
@@ -232,7 +183,7 @@
     </div>
 </div>
 
-<div id="modalMantenimiento" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModalOnBackdrop(event, 'modalMantenimiento')">
+<div id="modalMantenimiento" class="modal-overlay fixed inset-0 bg-white/10 backdrop-blur-sm hidden items-center justify-center z-50 p-4" onclick="closeModalOnBackdrop(event, 'modalMantenimiento')">
     <div class="modal-content bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-auto transform transition-all relative">
         <div class="flex justify-between items-center mb-6">
             <h3 class="text-xl font-bold text-maroon-700"><i class="fas fa-tools mr-2"></i>Mantenimiento</h3>
@@ -250,25 +201,6 @@
 </div>
 
 <script>
-    // --- LÓGICA DEL SIDEBAR MÓVIL ---
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    const btn = document.getElementById('mobile-menu-btn');
-
-    function toggleSidebar() {
-        if (sidebar.classList.contains('-translate-x-full')) {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-        } else {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        }
-    }
-    
-    // Abrir menú al hacer click en botón hamburguesa
-    if(btn) btn.addEventListener('click', toggleSidebar);
-
-
     // --- LÓGICA DE MODALES ---
     function openModal(modalId) {
         const modal = document.getElementById(modalId);

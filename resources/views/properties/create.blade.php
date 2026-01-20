@@ -21,76 +21,16 @@
 
 <div class="min-h-screen bg-gray-50 flex flex-col relative font-sans">
     
-    <header class="text-white py-3 px-4 md:px-8 flex items-center justify-between shadow-lg sticky top-0 z-40" style="background-color: #9b4d5c;">
-        <div class="flex items-center gap-3">
-            <button id="mobile-menu-btn" class="lg:hidden text-white hover:bg-white/20 p-2 rounded-lg transition focus:outline-none">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-
-            <div class="flex items-center gap-3">
-                <img src="{{ asset('images/Recurso 8.png') }}" alt="Logo" class="h-8 md:h-10 drop-shadow-md">
-                <div class="flex flex-col leading-tight">
-                    <span class="text-base md:text-2xl font-bold tracking-wide">Bienes Inmuebles</span>
-                    <span class="text-[10px] md:text-xs text-white/80 font-light uppercase tracking-wider hidden sm:block">Gestión de Activos</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="flex items-center gap-4">
-            <h1 class="text-sm font-medium hidden lg:block opacity-90 border-l border-white/30 pl-4 ml-4">Nueva Ficha Técnica</h1>
-            <form action="{{ route('logout') }}" method="POST" class="inline">
-                @csrf
-                <button type="submit" class="text-white/90 hover:text-white flex items-center gap-2 transition px-3 py-1.5 rounded-lg hover:bg-white/10 text-sm font-medium">
-                    <i class="fas fa-sign-out-alt"></i> 
-                    <span class="hidden md:inline">Salir</span>
-                </button>
-            </form>
-        </div>
-    </header>
+    <x-header title="Nueva Ficha Técnica" />
 
     <div class="flex flex-1 relative overflow-hidden">
         
-        <div id="sidebar-overlay" onclick="toggleSidebar()" 
-             class="fixed inset-0 bg-gray-900/60 z-40 hidden lg:hidden transition-opacity backdrop-blur-sm">
-        </div>
-
-        <aside id="sidebar" 
-               class="bg-white border-r w-72 py-6 px-4 gap-3 flex flex-col shadow-2xl lg:shadow-none
-                      fixed inset-y-0 left-0 z-50 h-full transition-transform duration-300 ease-in-out transform -translate-x-full
-                      lg:relative lg:translate-x-0 lg:inset-auto">
-            
-            <div class="flex justify-between items-center lg:hidden mb-6 border-b pb-4">
-                <span class="font-bold text-gray-700 text-lg">Menú</span>
-                <button onclick="toggleSidebar()" class="text-gray-400 hover:text-[#9b4d5c] p-2 transition">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-
-            <a href="{{ route('properties.create') }}" class="flex items-center gap-3 py-3.5 px-4 rounded-xl text-white font-semibold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:scale-95" style="background-color: #9b4d5c;">
-                <i class="fas fa-plus-circle text-lg"></i> Agregar Inmueble
-            </a>
-            
-            <nav class="space-y-1 mt-2">
-                <a href="{{ route('dashboard') }}" class="flex items-center gap-3 py-3 px-4 rounded-xl text-gray-600 hover:bg-red-50 hover:text-[#9b4d5c] font-medium transition-colors">
-                    <i class="fas fa-warehouse w-6 text-center"></i> Admin. Inmuebles
-                </a>
-                
-                @if(auth()->user()->isSuperAdmin())
-                <a href="{{ route('users.index') }}" class="flex items-center gap-3 py-3 px-4 rounded-xl text-gray-600 hover:bg-red-50 hover:text-[#9b4d5c] font-medium transition-colors">
-                    <i class="fas fa-users w-6 text-center"></i> Admin. Usuarios
-                </a>
-                @endif
-            </nav>
-
-            <div class="mt-auto p-4 bg-gray-50 rounded-xl border border-gray-100 text-center">
-                <p class="text-xs text-gray-400">Versión 2.1.0</p>
-            </div>
-        </aside>
+        <x-sidebar active="create" />
 
         <main class="flex-1 bg-[#f8f9fa] p-3 md:p-8 overflow-y-auto w-full scroll-smooth pb-24 md:pb-8">
             <div class="max-w-6xl mx-auto">
                 
-                <div class="mb-6 md:mb-10 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-0 z-30 md:static">
+                <div class="mb-6 md:mb-10 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-0 z-10 md:static">
                     <div class="flex items-center justify-between px-2 relative">
                         <div class="absolute left-4 right-4 top-1/2 transform -translate-y-1/2 h-1 bg-gray-100 -z-0 rounded-full"></div>
                         
@@ -460,22 +400,7 @@
         selectElement.value === "1" ? fileInput.classList.remove('hidden') : fileInput.classList.add('hidden');
     }
 
-    // 2. Sidebar Móvil
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    function toggleSidebar() {
-        const isClosed = sidebar.classList.contains('-translate-x-full');
-        if (isClosed) {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-        } else {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        }
-    }
-    document.getElementById('mobile-menu-btn').addEventListener('click', toggleSidebar);
-
-    // 3. WIZARD
+    // 2. WIZARD
     document.addEventListener('DOMContentLoaded', () => {
         let currentStep = 1; 
         const totalSteps = 4;

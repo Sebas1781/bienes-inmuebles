@@ -14,23 +14,15 @@
 
 <div class="min-h-screen bg-gray-50 flex flex-col relative font-sans">
     
-    <header class="text-white py-3 px-4 md:px-8 flex items-center justify-between shadow-lg sticky top-0 z-40" style="background-color: #9b4d5c;">
-        <div class="flex items-center gap-3">
-            <a href="{{ route('dashboard') }}" class="text-white hover:bg-white/20 p-2 rounded-lg transition">
-                <i class="fas fa-arrow-left text-xl"></i>
-            </a>
-            <div class="flex flex-col leading-tight">
-                <span class="text-base md:text-2xl font-bold tracking-wide">Editar Inmueble</span>
-                <span class="text-[10px] md:text-xs text-white/80 font-light uppercase hidden sm:block">{{ $property->denominacion }}</span>
-            </div>
-        </div>
-    </header>
+    <x-header title="Editar Inmueble" />
 
     <div class="flex flex-1 relative overflow-hidden">
+        
+        <x-sidebar active="dashboard" />
         <main class="flex-1 bg-[#f8f9fa] p-3 md:p-8 overflow-y-auto w-full scroll-smooth pb-24 md:pb-8">
             <div class="max-w-6xl mx-auto">
                 
-                <div class="mb-6 md:mb-10 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-0 z-30 md:static">
+                <div class="mb-6 md:mb-10 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-0 z-10 md:static">
                     <div class="flex items-center justify-between px-2 relative">
                         <div class="absolute left-4 right-4 top-1/2 transform -translate-y-1/2 h-1 bg-gray-100 -z-0 rounded-full"></div>
                         @foreach(['General', 'Equip.', 'Mant.', 'Fin'] as $index => $label)
