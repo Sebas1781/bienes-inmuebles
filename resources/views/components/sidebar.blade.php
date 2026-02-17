@@ -5,9 +5,9 @@
 </div>
 
 <aside id="sidebar"
-       class="sidebar-glass w-64 py-6 px-4 flex flex-col
+       class="sidebar-glass w-64 py-6 px-4 flex flex-col overflow-y-auto
               fixed top-0 left-0 bottom-0 z-[55] transition-transform duration-300 ease-in-out transform -translate-x-full
-              md:relative md:translate-x-0 md:z-auto md:sticky md:top-0 md:h-[calc(100vh-56px)] overflow-y-auto">
+              md:translate-x-0 md:top-[52px] md:h-[calc(100vh-52px)] md:z-[25]">
 
     <div class="flex justify-end md:hidden mb-2">
         <button onclick="toggleSidebar()" class="text-gray-400 hover:text-maroon-700 p-2 transition-transform hover:scale-110">

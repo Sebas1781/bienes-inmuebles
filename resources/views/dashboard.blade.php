@@ -5,11 +5,11 @@
 
     <x-header title="Dashboard" />
 
-    <div class="flex flex-1 relative overflow-hidden">
+    <div class="flex flex-1 relative">
 
         <x-sidebar active="dashboard" />
 
-        <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
+        <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full md:ml-64">
 
             @if(session('success'))
             <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-xl shadow-sm animate-slide-in-right">

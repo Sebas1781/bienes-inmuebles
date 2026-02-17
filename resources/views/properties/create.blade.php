@@ -96,11 +96,11 @@
 
     <x-header title="Nueva Ficha Técnica" />
 
-    <div class="flex flex-1 relative overflow-hidden">
+    <div class="flex flex-1 relative">
 
         <x-sidebar active="create" />
 
-        <main class="flex-1 p-3 md:p-8 overflow-y-auto w-full scroll-smooth pb-24 md:pb-8">
+        <main class="flex-1 p-3 md:p-8 overflow-y-auto w-full scroll-smooth pb-24 md:pb-8 md:ml-64">
             <div class="max-w-6xl mx-auto">
 
                 <div class="mb-6 md:mb-10 form-card p-4 md:p-6 rounded-2xl sticky top-0 z-10 md:static">

@@ -5,11 +5,11 @@
 
     <x-header title="Crear Usuario" />
 
-    <div class="flex flex-1 relative overflow-hidden">
+    <div class="flex flex-1 relative">
 
         <x-sidebar active="users" />
 
-        <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full">
+        <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full md:ml-64">
             <div class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
                     <div class="flex items-center gap-3 mb-6 border-b pb-4">
