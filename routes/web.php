@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\MovableController;
 use App\Http\Controllers\UserManagementController;
 
 // Rutas de autenticación
@@ -26,6 +27,9 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas de inmuebles
     Route::resource('properties', PropertyController::class);
+
+    // Rutas de bienes muebles
+    Route::resource('movables', MovableController::class);
 
     // Rutas de gestión de usuarios (solo para super administradores)
     Route::resource('users', UserManagementController::class);

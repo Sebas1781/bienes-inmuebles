@@ -26,6 +26,15 @@
         <span class="transition-all duration-300">Agregar inmueble</span>
     </a>
 
+    <a href="{{ route('movables.create') }}"
+       class="sidebar-link flex items-center gap-3 py-3 px-4 rounded-xl font-semibold transition-all duration-300 group
+              {{ $active === 'movables-create' ? 'sidebar-link-active' : 'text-maroon-700 hover:bg-maroon-100/70 hover:shadow-md' }}">
+        <div class="sidebar-icon-wrap {{ $active === 'movables-create' ? 'bg-white/20' : 'bg-maroon-100' }}">
+            <i class="fas fa-plus-circle transition-transform duration-300 {{ $active === 'movables-create' ? 'text-white' : 'text-maroon-700 group-hover:scale-110' }}"></i>
+        </div>
+        <span class="transition-all duration-300">Agregar Bien Mueble</span>
+    </a>
+
     <a href="{{ route('dashboard') }}"
        class="sidebar-link flex items-center gap-3 py-3 px-4 rounded-xl font-semibold transition-all duration-300 group
               {{ $active === 'dashboard' ? 'sidebar-link-active' : 'text-maroon-700 hover:bg-maroon-100/70 hover:shadow-md' }}">
@@ -33,6 +42,15 @@
             <i class="fas fa-warehouse transition-transform duration-300 {{ $active === 'dashboard' ? 'text-white' : 'text-maroon-700 group-hover:scale-110' }}"></i>
         </div>
         <span class="transition-all duration-300">Admin. inmuebles</span>
+    </a>
+
+    <a href="{{ route('movables.index') }}"
+       class="sidebar-link flex items-center gap-3 py-3 px-4 rounded-xl font-semibold transition-all duration-300 group
+              {{ $active === 'movables' ? 'sidebar-link-active' : 'text-maroon-700 hover:bg-maroon-100/70 hover:shadow-md' }}">
+        <div class="sidebar-icon-wrap {{ $active === 'movables' ? 'bg-white/20' : 'bg-maroon-100' }}">
+            <i class="fas fa-box transition-transform duration-300 {{ $active === 'movables' ? 'text-white' : 'text-maroon-700 group-hover:scale-110' }}"></i>
+        </div>
+        <span class="transition-all duration-300">Admin. muebles</span>
     </a>
 
     @if(auth()->user()->isSuperAdmin())
