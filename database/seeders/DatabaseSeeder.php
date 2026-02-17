@@ -44,7 +44,6 @@ class DatabaseSeeder extends Seeder
         // Crear inmuebles de ejemplo
         $inmuebles = [
             [
-                'denominacion' => 'Palacio Municipal Antiguo',
                 'ubicacion' => 'Av. Hidalgo #1, Centro',
                 'comunidad' => 'Cabecera Municipal',
                 'clave_catastral' => '001-002-003',

@@ -4,18 +4,38 @@
 <style>
     /* Input base style */
     .input-modern {
-        @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-700 bg-white/80 focus:ring-2 focus:ring-[#9b4d5c]/30 focus:border-[#9b4d5c] transition duration-300 outline-none appearance-none;
-        backdrop-filter: blur(4px);
+        width: 100%;
+        border: 2px solid #d1d5db;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
+        color: #1f2937;
+        background-color: #ffffff;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        outline: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
     }
     .input-modern:hover {
-        border-color: #d1a3ab;
+        border-color: #9b4d5c;
     }
     .input-modern:focus {
-        background: white;
-        box-shadow: 0 0 0 3px rgba(155, 77, 92, 0.1);
+        background-color: #ffffff;
+        border-color: #9b4d5c;
+        box-shadow: 0 0 0 4px rgba(155, 77, 92, 0.1);
+    }
+    .input-modern::placeholder {
+        color: #9ca3af;
+        font-weight: 400;
     }
     .label-modern {
-        @apply block text-sm font-semibold text-gray-600 mb-1.5;
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: #374151;
+        margin-bottom: 0.5rem;
         letter-spacing: 0.01em;
     }
     /* Animación suave para cambios de paso */
@@ -28,15 +48,13 @@
     }
     /* Card sections */
     .form-card {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 24px rgba(0, 0, 0, 0.03);
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 16px rgba(0, 0, 0, 0.04);
         transition: box-shadow 0.3s ease;
     }
     .form-card:hover {
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 8px 30px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
     }
     .section-title-icon {
         width: 40px;
@@ -51,13 +69,26 @@
     .progress-line {
         transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    /* Select styling */
+    /* Select styling - Fix double arrow issue */
     select.input-modern {
         cursor: pointer;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239b4d5c' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: #ffffff;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%239b4d5c' d='M10 12L5 7h10z'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
         background-position: right 12px center;
-        padding-right: 36px;
+        background-size: 16px;
+        padding-right: 44px;
+    }
+    select.input-modern::-ms-expand {
+        display: none;
+    }
+    /* Textarea */
+    textarea.input-modern {
+        resize: none;
+        font-family: inherit;
     }
 </style>
 
