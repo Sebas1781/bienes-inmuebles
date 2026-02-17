@@ -1,6 +1,6 @@
 @props(['title' => 'Dashboard'])
 
-<header class="header-gradient text-white py-3 px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 transition-all duration-300">
+<header class="header-gradient text-white py-3 px-4 md:px-8 flex items-center justify-between sticky top-0 z-[60] transition-all duration-300">
     <div class="flex items-center gap-4">
         <button id="mobile-menu-btn" class="md:hidden text-white hover:text-gray-200 focus:outline-none p-1 transition-transform hover:scale-110 active:scale-95">
             <i class="fas fa-bars text-2xl"></i>
