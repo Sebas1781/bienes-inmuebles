@@ -6,11 +6,16 @@
     <title>@yield('title', 'Dashboard')</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Carga los assets con Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        /* Colores personalizados Maroon - Fallback para navegadores */
+        * { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+
+        /* Colores personalizados Maroon */
         .bg-header { background-color: #9b4d5c; }
         .bg-maroon-700 { background-color: #7c2a38; }
         .bg-maroon-800 { background-color: #651f2e; }
@@ -24,15 +29,15 @@
         }
         .border-maroon-700 { border-color: #7c2a38; }
 
-        /* Animación de desvanecimiento SOLO para el contenido principal */
+        /* Animación de entrada del contenido principal */
         main {
-            animation: fadeInContent 0.5s ease-in-out;
+            animation: fadeInContent 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes fadeInContent {
             from {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(12px);
             }
             to {
                 opacity: 1;
@@ -40,14 +45,14 @@
             }
         }
 
-        /* Animación suave al hacer clic en enlaces */
+        /* Transiciones suaves en enlaces */
         a {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Efecto de desvanecimiento al salir - SOLO MAIN */
+        /* Efecto de salida */
         main.page-transition-exit {
-            animation: fadeOutContent 0.3s ease-in-out forwards;
+            animation: fadeOutContent 0.25s ease-in-out forwards;
         }
 
         @keyframes fadeOutContent {
@@ -57,19 +62,24 @@
             }
             to {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(-8px);
             }
         }
+
+        /* Scrollbar global elegante */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(124, 42, 56, 0.15); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(124, 42, 56, 0.3); }
     </style>
 
     @stack('styles')
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 min-h-screen antialiased">
     @yield('content')
     @stack('scripts')
 
     <script>
-        // Animación de transición suave entre páginas - SOLO CONTENIDO PRINCIPAL
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('a[href^="/"]');
 
@@ -84,7 +94,6 @@
                     if (href && href !== '#' && !href.includes('logout')) {
                         e.preventDefault();
 
-                        // Aplicar animación solo al main
                         const mainContent = document.querySelector('main');
                         if (mainContent) {
                             mainContent.classList.add('page-transition-exit');
@@ -92,7 +101,7 @@
 
                         setTimeout(() => {
                             window.location.href = href;
-                        }, 300);
+                        }, 250);
                     }
                 });
             });
